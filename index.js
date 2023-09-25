@@ -1,7 +1,10 @@
 const { create, index, show, update, destroy } = require('./helpers/crud');
 
 // test create post
-create('test title', 'test data');
+// create('test title', 'test data');
+
+// Get Data BY ID
+show(2);
 
 // test show all post
 // test show detail post by id
