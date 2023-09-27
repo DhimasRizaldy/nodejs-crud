@@ -1,10 +1,9 @@
-
-module.exports = class Show {
-    constructor(id) {
+class Show {
+    constructor(id, title, body) {
         this.id = id;
+        this.title = title;
+        this.body = body;
     }
-    // metode show data
-    showData(data) {
-        return data.find(item => item.id === this.id);
-    }
-};
+}
+
+module.exports = Show;
