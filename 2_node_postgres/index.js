@@ -8,11 +8,11 @@ async function main() {
         // console.log(newPost);
 
         // // test show all post
-        let posts = await index();
-        console.log(posts);
+        // let posts = await index();
+        // console.log(posts);
 
         // // test show detail post by id
-        // let post = await show(1);
+        // let post = await show(2);
         // console.log(post);
 
         // // test update post by id
@@ -20,8 +20,9 @@ async function main() {
         // console.log(updatedPost);
 
         // // test delete post by id
-        // let deletedPost = await destroy(1);
-        // console.log(deletedPost);
+        let deletedPost = await destroy(40);
+        console.log(deletedPost);
+
     } catch (err) {
         console.log(err);
     }

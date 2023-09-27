@@ -26,14 +26,13 @@ function index() {
 }
 
 function show(id) {
-    return new Promise((resolve, reject) => {
-        let post = posts.data.filter(p => {
-            return p.id == id;
-        });
-
-        if (!post.length) return reject(`post with id ${id} is doesn't exist!`);
-
-        resolve(post[0]);
+    return new Promise(async (resolve, reject) => {
+        try {
+            let result = await pool.query("SELECT * FROM posts WHERE id = $1;",[id]);
+            resolve(result.rows);
+        } catch (err) {
+            return reject(err);
+        }
     });
 }
 
@@ -52,15 +51,14 @@ function update(id, title, body) {
 
 
 function destroy(id) {
-    return new Promise((resolve, reject) => {
-        let postIndex = posts.data.findIndex(post => post.id === id);
-
-        if (postIndex < 0) return reject(`post with id ${id} is doesn't exist!`);
-
-        posts.data.splice(postIndex, 1);
-
-        fs.writeFileSync('./database/posts.json', JSON.stringify(posts, null, 4));
-        resolve(`post with id ${id} is deleted!`);
+    return new Promise(async (resolve, reject) => {
+        try {
+            let result = await pool.query("DELETE FROM posts WHERE id = $1;",[id]);
+            resolve(`post with id ${id} is deleted!`);
+            
+        } catch (err) {
+            return reject(err);
+        }
     });
 }
 
