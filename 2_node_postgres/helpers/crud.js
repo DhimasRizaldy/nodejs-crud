@@ -67,17 +67,21 @@ function update(id, title, body) {
   });
 }
 
-function destroy(id) {
-  return new Promise((resolve, reject) => {
-    let postIndex = posts.data.findIndex((post) => post.id === id);
+async function destroy(id) {
+  try {
+    const result = await pool.query(
+      "DELETE FROM posts WHERE id = $1 RETURNING *;",
+      [id]
+    );
 
-    if (postIndex < 0) return reject(`post with id ${id} is doesn't exist!`);
+    if (result.rows.length === 0) {
+      throw new Error(`post with id ${id} does not exist.`);
+    }
 
-    posts.data.splice(postIndex, 1);
-
-    fs.writeFileSync("./database/posts.json", JSON.stringify(posts, null, 4));
-    resolve(`post with id ${id} is deleted!`);
-  });
+    return `post with id ${id} is deleted!`;
+  } catch (err) {
+    throw err;
+  }
 }
 
 module.exports = { create, index, show, update, destroy };
