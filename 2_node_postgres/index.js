@@ -4,12 +4,12 @@ const { create, index, show, update, destroy } = require('./helpers/crud');
 async function main() {
     try {
         // test create post
-        let newPost = await create('test title', 'test data');
-        console.log(newPost);
+        // let newPost = await create('test title', 'test data');
+        // console.log(newPost);
 
         // // test show all post
-        // let posts = index();
-        // console.log(posts);
+        let posts = await index();
+        console.log(posts);
 
         // // test show detail post by id
         // let post = await show(1);
